@@ -8,12 +8,7 @@ int main(void){
     int n,st,en;
     string a;
     bool flag=false;
-    array<bool, 290> check;
-    array<bool, 290> endcheck;
-    for(int i=0;i<290;i++){
-        check[i]=false;
-        endcheck[i]=true;
-    }
+    vector<bool> twotime(290);
     cin >> n;
     for(int i=0;i<n;i++){
         cin >> a;
@@ -21,22 +16,19 @@ int main(void){
         en=stoi(a.substr(5,2))*60+stoi(a.substr(7,2));
         st=floor(st/5.0);
         en=ceil(en/5.0);
-        for(int i=st;i<=en;i++){
-            check[i]=true;
-            if(i!=en)endcheck[i]=false;
-        }
+        for(int i=st;i<en;i++)twotime[i]=true;
     }
     for(int i=0;i<290;i++){
-        if(check[i]&&!flag){
+        if(twotime[i]&&!flag){
             cout << ch(floor(i/12)) << ch((i*5)%60) << "-";
             flag=true;
         }
-        if(endcheck[i]&&flag){
+        if(!twotime[i]&&flag){
             cout << ch(floor(i/12)) << ch((i*5)%60) << endl;
             flag=false;
         }
     }
 }
 /*
-改変：atcoder.jp/contests/abc001/submissions/31714816
+atcoder.jp/contests/abc001/submissions/49910290
 */
